@@ -1,0 +1,12 @@
+.main{
+    /* padding: 15px; */
+    margin : 30px
+
+}
+.toolbar{
+    display: flex;
+    justify-content: space-between;
+}
+.button-toolbar{
+    margin : 0px 10px 0px 10px;
+}

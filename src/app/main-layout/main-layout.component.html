@@ -1,0 +1,40 @@
+
+<mat-toolbar color = "primary" class="toolbar">
+    <div class="left-side">
+      <button mat-icon-button (click)="opened=!opened">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span >{{titre}}</span>
+      <span class="spacer"></span>
+              <button mat-raised-button color="primary" class="button-toolbar" (click)="genererDonneesDeTest()">
+              PEUPLER BD AVEC DONNEES DE TEST
+            </button>
+    </div>
+    <button (click)="onLogout()" class="btn btn-danger">
+      Déconnexion
+    </button>
+      <a routerLink="/about" class="auteur">{{auteur}}</a>
+    </mat-toolbar>
+    
+    <mat-sidenav-container class="example-container">
+    
+      <mat-sidenav [(opened)]="opened" >
+        <mat-nav-list>
+          <a mat-list-item routerLink="assignments" routerLinkActive="active" (click)="opened=!opened">Home</a>
+          <a mat-list-item routerLink="assignments/add" routerLinkActive="active"(click)="opened=!opened">Ajouter Un devoir</a>
+          <a mat-list-item routerLink="/about" routerLinkActive="active"(click)="opened=!opened">Contact</a>
+        </mat-nav-list>
+      </mat-sidenav>
+    
+      <mat-sidenav-content>
+          <div class="main"> 
+            <router-outlet></router-outlet>
+            </div>
+        <!-- </div> -->
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+    
+
+    
+    
+    

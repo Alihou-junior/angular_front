@@ -1,0 +1,28 @@
+.titre{
+    display: flex;
+    justify-content: center;
+    margin-left: 10px; /* Optional: Add some margin if needed */
+}
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center;
+    margin: 0;
+    padding: 0;
+    background-color: black; */
+}
+mat-sidenav-container{
+    height: 100%;
+}
+.auteur {
+    margin-right: 10px; /* Optional: Add some margin if needed */
+}
+.main{
+    margin: 20px ;
+}
+/* h1{
+    margin: 10px;
+} */
+ .button-toolbar{
+    margin :15px
+ }
