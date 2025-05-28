@@ -21,6 +21,14 @@ export class AddAssignmentComponent  {
   // Pour le formulaire d'ajout
   nomDevoir = "";
   dateDeRendu!:Date;
+  auteur = "";
+  matiereNom = "";
+  matiereCoefficient?:number;
+  matiereImage = "";
+  matiereImageProf = "";
+  remarques = "";
+  note?:number;
+
 
   constructor(private assignmentsService:AssignmentsService, 
               private router:Router) {}
@@ -40,7 +48,15 @@ onSubmit(event:any) {
       let a = new Assignment();
       a.nom = this.nomDevoir;
       a.dateDeRendu = this.dateDeRendu;
-      a.rendu = false;
+      a.rendu = this.note!== undefined && this.note != null && this.note >= 0 && this.note>20; // si la note est définie et >= 0, alors rendu = true
+      a.auteur = this.auteur;
+      a.matiere = {
+        nom: this.matiereNom,
+        image: this.matiereImage,
+        imageProf: this.matiereImageProf
+      };
+      a.remarques = this.remarques;
+      a.note = this.note ?? 0; //obtenu grace à chagpt
 
       // On envoie l'assignment vers le service pour insertion
       this.assignmentsService.addAssignment(a)

@@ -11,6 +11,34 @@
                required
         >
     </mat-form-field>
+
+    <mat-form-field>
+        <input matInput 
+               placeholder="Matiere" 
+               [(ngModel)]="matiereNom" 
+               name="matiereNom"
+               required
+        >
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput 
+               placeholder="URL de l'image de la Matiere" 
+               [(ngModel)]="matiereImage" 
+               name="matiereImage"
+               required
+        >
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput 
+               placeholder="URL de la photo du Prof" 
+               [(ngModel)]="matiereImageProf" 
+               name="matiereImageProf"
+               required
+        >
+    </mat-form-field>
+
     <mat-form-field>
         <mat-label>Choisissez date de rendu</mat-label>
         <input matInput [matDatepicker]="picker"
@@ -20,6 +48,36 @@
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput 
+                  placeholder="Nom de l'auteur du devoir" 
+                  [(ngModel)]="auteur"
+                  name="auteur"
+                  required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput
+        type="number"
+        min="0"
+        max="20"
+        step="1"
+        placeholder="Note sur 20" 
+        [(ngModel)]="note"
+        name="note"
+        required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Remarques</mat-label>
+        <textarea matInput 
+                  placeholder="Remarques sur le devoir" 
+                  [(ngModel)]="remarques" 
+                  name="remarques"
+                  required>
+        </textarea>
     </mat-form-field>
 
     <button mat-raised-button color="primary">
