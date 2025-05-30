@@ -35,6 +35,7 @@ export class AddAssignmentComponent  {
 
   
 onSubmit(event:any) {
+  event.preventDefault(); // Empêche le rechargement de la page
     console.log(`On a soumis le formulaire nom = ${this.nomDevoir}, 
       dateDeRendu = ${this.dateDeRendu}`);
 
@@ -48,7 +49,7 @@ onSubmit(event:any) {
       let a = new Assignment();
       a.nom = this.nomDevoir;
       a.dateDeRendu = this.dateDeRendu;
-      a.rendu = this.note!== undefined && this.note != null && this.note >= 0 && this.note>20; // si la note est définie et >= 0, alors rendu = true
+      a.rendu = this.note!== undefined && this.note != null && this.note >= 0 && this.note<20; // si la note est définie et >= 0, alors rendu = true
       a.auteur = this.auteur;
       a.matiere = {
         nom: this.matiereNom,
@@ -65,7 +66,10 @@ onSubmit(event:any) {
 
        // On va naviguer vers la page qui affiche la liste des assignments
        // c'est la route par défaut (/ ou /home)
-       this.router.navigate(['/home']);
+       this.router.navigate(['/main/assignments']);
+      }, error => {
+        console.error('Erreur lors de l\'ajout de l\'assignment', error);
+        alert('Erreur lors de l\'ajout de l\'assignment. Veuillez réessayer.');
       });
   }
 
