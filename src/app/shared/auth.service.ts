@@ -9,8 +9,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
   // URL du backend pour les utilisateurs
-  //private backendURL = 'https://backend-angular-16fq.onrender.com/api'; // Remplacez par votre URL
-  private backendURL = 'http://localhost:8010/api'; // 
+  private backendURL = 'https://angular-back-gxb9.onrender.com/api'; // Remplacez par votre URL
+  //private backendURL = 'http://localhost:8010/api'; // 
   private isLocalStorageAvailable = typeof localStorage !== 'undefined';
   users:users[] = [];
   jwtHelper: any;
