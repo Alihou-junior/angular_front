@@ -24,7 +24,7 @@ export const routes: Routes = [
     {
         path: 'main',
         component: MainLayoutComponent,
-        // canMatch: [AuthGuard], // Protection avec AuthGuard (décommenter si nécessaire)
+        canMatch: [AuthGuard], // Protection avec AuthGuard (décommenter si nécessaire)
         children: [
             // Redirection par défaut vers "assignments" lorsque "main" est visité
             { path: 'home', redirectTo: 'assignments', pathMatch: 'full' },

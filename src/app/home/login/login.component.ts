@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = '';
+  email: string = '';
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -19,7 +19,7 @@ export class LoginComponent {
   onSubmit() {
 
     // Appelez le service d'authentification pour effectuer la connexion
-    this.authService.login(this.username, this.password).subscribe(
+    this.authService.login(this.email, this.password).subscribe(
       (response) => {
         console.log('Connexion réussie', response);
         localStorage.setItem('token', response.token);

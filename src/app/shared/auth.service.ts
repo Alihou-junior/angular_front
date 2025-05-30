@@ -2,18 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { users } from '../home/auth.model';
-
+import { JwtHelperService } from '@auth0/angular-jwt'; 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   // URL du backend pour les utilisateurs
-  private backendURL = 'https://backend-angular-16fq.onrender.com/api'; // Remplacez par votre URL
+  //private backendURL = 'https://backend-angular-16fq.onrender.com/api'; // Remplacez par votre URL
+  private backendURL = 'http://localhost:8010/api'; // 
   private isLocalStorageAvailable = typeof localStorage !== 'undefined';
   users:users[] = [];
   jwtHelper: any;
-  constructor(private http: HttpClient,) {}
+  constructor(private http: HttpClient,) {
+    // Initialisation de JwtHelperService
+    this.jwtHelper = new JwtHelperService();
+  }
 
   // Route : Inscription
   register(username: string, email: string, password: string): Observable<any> {

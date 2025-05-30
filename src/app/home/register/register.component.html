@@ -9,16 +9,16 @@
     <div class="page-wrapper">
         <div class="container">
             <a href="#" class="logo-img text-center">
-                <img src='../../assets/images/logo1.png' alt="Logo">
+                <!--img src='../../assets/images/logo1.png' alt="Logo"-->
             </a>
             <p class="text-center">Système de gestion Intégré</p>
-            <form>
-                <label for="email">Username</label>
-                <input type="email" class="form-control" id="username" required>
+            <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" required>
                 <label for="email">Adresse email</label>
-                <input type="email" class="form-control" id="email" required>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" required>
                 <label for="password">Mot de passe</label>
-                <input type="password" class="form-control" id="password" required>
+                <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required>
                 <button type="submit" class="btn-primary">S'enrergister</button>
             </form>
             <!-- <a href="#" class="text-primary">Créer un compte</a> -->
