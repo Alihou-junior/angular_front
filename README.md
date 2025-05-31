@@ -1,59 +1,79 @@
-# AssignmentApp
+# AssignmentApp - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+Ce projet est une interface web developpée avec [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5 permttant la gestion de devoir. Il est couplé avec un backend node.js/MongoDB
 
-## Development server
+## Conditions prealables
+Pour installer ce projet , vous aures besoin de : 
+- [Node.js](https://nodejs.org/en/) > v17
+- Angular (https://angular.dev/)
 
-To start a local development server, run:
 
+Installation de Node et npm : 
 ```bash
+    sudo apt install nodejs npm
+    node -v 
+    npm -v 
+    npm install -g @angular/cli
+    ng version
+```
+
+
+<br>
+
+## Installation 
+#### cloner le depot 
+```bash 
+git clone https://github.com/votre_utilisateur/frontend-assignments.git
+cd frontend-assignments
+```
+
+#### Installer les dependances
+```bash 
+npm install
+```
+
+#### Demarrer le serveur Angular localement
+```bash 
 ng serve
 ```
+#### Acceder à l'application
+Une fois le serveur demarré, Ouvrez votre navigateur à l'addresse ```http://localhost:4200 ``` L'application mettra à jour vos modifications en temps réel.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+<br>
 
-## Code scaffolding
+#### Execution de tests
+Les test e2e(end-to-end) verifient que l'application fonctionne du point de vue de l'user .
+```ng e2e```
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
+## Deploiement 
+Pour deployer le projet en production, il faut :
+- Compiler l'application 
+```bash 
+ng build --configuration production 
 ```
+- le dossier ```dist/assignment-app/``` genéré peut etre servi par un serveur Node, Express ou un hebergeur statique
+- Utilisez simplement la commande ```node server.js``` pour utiliser le server Express en dans votre terminal.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
-ng generate --help
-```
+Apres lancement (sur Express par example), vous aurez acces à l'application localemnt à l'addresse ```http://localhost:4200/main/assignments```.
 
-## Building
+<br>
 
-To build the project run:
+## Construit avec
+- Angular - Framework web Frontend
+- RxJS - Programmation reactive
+- Bootstrap - Design reactif 
+- Angular Material - Composant UI
 
-```bash
-ng build
-```
+<br>
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Auteurs 
+- [Alihou-junior](https://github.com/Alihou-junior)
+- [capatainkomic](https://github.com/capatainkomic)
 
-## Running unit tests
+<br>
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Remerciements
+- A l'equipe MBDS pour le sujet
+- A mes collegues testeurs anonymes
