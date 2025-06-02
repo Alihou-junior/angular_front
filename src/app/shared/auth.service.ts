@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { users } from '../home/auth.model';
-import { JwtHelperService } from '@auth0/angular-jwt'; 
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   // URL du backend pour les utilisateurs
-  private backendURL = 'https://angular-back-gxb9.onrender.com/api'; // Remplacez par votre URL
-  //private backendURL = 'http://localhost:8010/api'; // 
+  //private backendURL = 'https://angular-back-gxb9.onrender.com/api'; // Remplacez par votre URL
+  private backendURL = 'http://localhost:8010/api'; //
   private isLocalStorageAvailable = typeof localStorage !== 'undefined';
   users:users[] = [];
   jwtHelper: any;
@@ -20,8 +21,8 @@ export class AuthService {
   }
 
   // Route : Inscription
-  register(username: string, email: string, password: string): Observable<any> {
-    const body = { username, email, password };
+  register(username: string, name:string, surname:string, email: string, password: string, role: string): Observable<any> {
+    const body = { username, name, surname, email, password , role};
     return this.http.post<users>(`${this.backendURL}/register`, body);
   }
 
@@ -32,7 +33,7 @@ export class AuthService {
     } else {
       const token = localStorage.getItem('token');
       console.log('Token trouvé dans localStorage: ', token);
-  
+
       if (token) {
         const isExpired = this.jwtHelper.isTokenExpired(token);
         console.log('Le token est-il expiré ?', isExpired);
@@ -42,7 +43,7 @@ export class AuthService {
       return false;  // Si aucun token n'est trouvé
     }
   }
-  
+
 
   // Vérification si localStorage est disponible
   get isLocalStorageAvailablee(): boolean {
@@ -71,4 +72,7 @@ export class AuthService {
     const headers = { Authorization: token };
     return this.http.get<users>(`${this.backendURL}/profile`, { headers });
   }
+
+
+
 }

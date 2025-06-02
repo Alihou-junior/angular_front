@@ -7,27 +7,56 @@
     <link rel="stylesheet" href="./aboutme.component.css">
 </head>
 <body>
-    <header>
-        <h1>À propos de moi</h1>
-    </header>
+    <div class="aboutme-container">
+      <header>
+          <h1>À Propos de Nous</h1>
+          <div class="header-line"></div>
+      </header>
 
-    <section class="container">
-        <div class="profile">
-            <img src="profile.jpg" alt="Photo de Alihou Jordan">
-        </div>
-        <div class="info">
-            <h2>Alihou Jordan</h2>
-            <p>👋 Salut ! Je suis un étudiant en <strong>Master 1 Informatique</strong> à <strong>Sophia-Antipolis, Nice</strong>. Passionné par la <strong>programmation</strong> et le <strong>football</strong>, j’aime apprendre et relever de nouveaux défis dans le domaine du développement logiciel.</p>
-            <p>Depuis tout petit, j’ai toujours été fasciné par la technologie et son impact sur notre quotidien. Aujourd’hui, je travaille sur des projets de développement web et d’applications tout en continuant à explorer de nouvelles technologies.</p>
-            <p>En dehors du code, j’adore jouer et regarder du <strong>football</strong>, un sport qui m'apprend la discipline, la stratégie et l'esprit d'équipe.</p>
-            <p>N’hésitez pas à me contacter pour discuter tech, foot ou simplement partager un bon moment !</p>
-            <a href="mailto:contact@alihoujordan.com" class="contact-btn">Me contacter</a>
-            <a class="contact-btn" href="#">Retour</a>
-        </div>
-    </section>
+      <div class="cards-container">
+          <!-- Carte 1 : Alihou Jordan -->
+          <div class="card" [class.active]="currentIndex === 0" [class.prev]="currentIndex === 1" [class.next]="currentIndex === 2">
+              <div class="card-image-container">
+                  <img src="https://i.pinimg.com/736x/e2/a2/d8/e2a2d88805daf1553aae2d1f9ab42417.jpg" alt="Photo de Alihou Jordan" class="card-image">
+              </div>
+              <h2>Alihou Jordan</h2>
+              <p>👋 Salut ! Je suis un étudiant en Master 1 Informatique à Sophia-Antipolis, Nice. Passionné par la programmation et le football, j’aime apprendre et relever de nouveaux défis dans le domaine du développement logiciel.
+            Depuis tout petit, j’ai toujours été fasciné par la technologie et son impact sur notre quotidien. Aujourd’hui, je travaille sur des projets de développement web et d’applications tout en continuant à explorer de nouvelles technologies.
+            En dehors du code, j’adore jouer et regarder du football, un sport qui m'apprend la discipline, la stratégie et l'esprit d'équipe.
+            N’hésitez pas à me contacter pour discuter tech, foot ou simplement partager un bon moment !</p>
+              <a href="mailto:contact@alihoujordan.com" class="contact-btn">Me contacter</a>
+          </div>
 
-    <footer>
-        <p>© 2025 Alihou Jordan | Passionné par le code et le sport ⚽💻</p>
-    </footer>
+          <!-- Carte 2 : Ramlat Maoulana -->
+          <div class="card" [class.active]="currentIndex === 1" [class.prev]="currentIndex === 2" [class.next]="currentIndex === 0">
+              <div class="card-image-container">
+                  <img src="https://i.pinimg.com/736x/c8/7a/eb/c87aebfe657b369d301bd255f6fbdfed.jpg" alt="Photo de Ramlat Maoulana" class="card-image">
+              </div>
+              <h2>Ramlat Maoulana</h2>
+              <p>👩‍💻 Je suis en Master 1 Informatique, passionnée par le dessin, les mangas, les animés… et récemment par les séries thaïlandaises et chinoises. J’adore apprendre : que ce soit des langues comme l’anglais ou l’espagnol, ou les langages de programmation.Je suis arrivée dans cette formation un peu par hasard, et aujourd’hui je suis en master — c’est fou ! J’ai un vrai coup de cœur pour le développement frontend, où je peux exprimer ma créativité… même si je me perds parfois dans une montagne de tutoriels pour que tout soit parfait. Bref, ce projet a été une super expérience !</p>
+              <a href="mailto:magique52@gmail.com" class="contact-btn">Me contacter</a>
+          </div>
+
+          <!-- Carte 3 : Projet -->
+          <div class="card" [class.active]="currentIndex === 2" [class.prev]="currentIndex === 0" [class.next]="currentIndex === 1">
+              <div class="card-image-container">
+                  <img src="https://i.pinimg.com/736x/23/8e/a6/238ea679ba9cecce8b3f8c4ebf9d151d.jpg" alt="Projet" class="card-image">
+              </div>
+              <h2>Le Projet</h2>
+              <p>Application web développée à deux : un Backend robuste gérant les utilisateurs, les devoirs et les matières, et un Frontend dynamique et esthétique. Le projet nous a permis de renforcer nos compétences et notre coordination.</p>
+          </div>
+
+          <button class="nav-btn prev-btn" (click)="prevCard()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 18l-6-6 6-6"/>
+              </svg>
+          </button>
+          <button class="nav-btn next-btn" (click)="nextCard()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6"/>
+              </svg>
+          </button>
+      </div>
+  </div>
 </body>
 </html>

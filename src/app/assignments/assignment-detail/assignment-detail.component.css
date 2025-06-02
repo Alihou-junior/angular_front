@@ -1,10 +1,178 @@
+mat-card {
+  max-width: 500px;
+  margin: 16px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 48, 135, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+mat-card:hover {
+  box-shadow: 0 8px 24px rgba(69, 145, 255, 0.2);
+}
+
+/* Card Header */
+mat-card-header {
+  padding: 20px;
+  background: rgba(248, 250, 252, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 12px 12px 0 0;
+}
+
+mat-card-subtitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(90deg, #4591ff 0%, #00ddeb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  letter-spacing: 0.4px;
+  animation: subtle-glow 2.5s ease-in-out infinite;
+}
+
+.image-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+.subject-img {
+  width: 150px;
+  height: 150px;
+  box-shadow: 0 0 8px rgba(69, 145, 255, 0.3);
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subject-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(69, 145, 255, 0.5);
+}
+
+.prof-img {
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 6px rgba(0, 48, 135, 0.15);
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.prof-img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 221, 235, 0.4);
+}
+
+/* Card Content */
+mat-card-content {
+  padding: 24px;
+  color: #1e2a44;
+}
+
+mat-card-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e2a44;
+  margin-bottom: 16px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 2px rgba(0, 48, 135, 0.05);
+  line-height: 1.4;
+}
+
+mat-card-content p {
+  font-size: 1rem;
+  margin: 10px 0;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  color: #2d3b55;
+  letter-spacing: 0.2px;
+}
+
+.rendu {
+  color: #22c55e;
+  font-weight: 600;
+  background: #dcfce7;
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nonRendu {
+  color: #ef4444;
+  font-weight: 600;
+  background: #fee2e2;
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Card Actions */
 .containerBoutons {
-    display:flex;
-    /* Aligne children horizontalement */
-    justify-content: space-between;
-    /* alignés sur les extrémités */
-    
-    /* Espace entre les children */
-    margin: 10px;
-    
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+mat-card-actions button {
+  padding: 8px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+mat-card-actions button[color="primary"] {
+  background: #4591ff;
+  color: #ffffff;
+}
+
+.deleteBtn {
+  background: black;
+  color: #ffffff;
+}
+
+
+
+mat-card-actions button[color="primary"]:hover {
+  background: #00ddeb;
+  transform: scale(1.03);
+  box-shadow: 0 4px 10px rgba(69, 145, 255, 0.3);
+}
+
+.deleteBtn:hover{
+  background: #ff2929;
+  transform: scale(1.03);
+  box-shadow: 0 4px 10px rgba(69, 145, 255, 0.3);
+}
+
+mat-card-actions button[color="primary"]:active , .deleteBtn:active {
+  transform: scale(0.98);
+}
+
+/* Animation for Gradient Text */
+@keyframes subtle-glow {
+  0% {
+    text-shadow: 0 1px 3px rgba(0, 48, 135, 0.15);
+  }
+  50% {
+    text-shadow: 0 1px 6px rgba(0, 48, 135, 0.25);
+  }
+  100% {
+    text-shadow: 0 1px 3px rgba(0, 48, 135, 0.15);
+  }
 }

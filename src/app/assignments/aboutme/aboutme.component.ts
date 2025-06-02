@@ -9,5 +9,14 @@ import { Component } from '@angular/core';
 })
 export class AboutmeComponent {
 
+  currentIndex = 0;
+  totalCards = 3; // Nombre total de cartes
 
+  prevCard() {
+    this.currentIndex = (this.currentIndex - 1 + this.totalCards) % this.totalCards;
+  }
+
+  nextCard() {
+    this.currentIndex = (this.currentIndex + 1) % this.totalCards;
+  }
 }

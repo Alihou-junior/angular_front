@@ -16,14 +16,17 @@ import { FormsModule } from '@angular/forms';
 export class RegisterComponent {
   email: string = '';
   username: string = '';
+  name:string = '';
+  surname:string = '';
   password: string = '';
+  role: string = 'user'; // Valeur par défaut
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
     console.log(`On a soumis le formulaire avec email = ${this.email},
       username = ${this.username}, password = ${this.password}`);
-    this.authService.register(this.username, this.email, this.password)
+    this.authService.register(this.username, this.name, this.surname, this.email, this.password, this.role)
       .subscribe({
         next: (response) => {
           console.log('Inscription réussie', response);

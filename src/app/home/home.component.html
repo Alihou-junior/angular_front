@@ -3,18 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Assignment App - Accueil</title>
     <link rel="stylesheet" href="./home.component.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="left">
-            <h1>Bienvenue sur le projet d'enregistrement de notes</h1>
+    <header class="header">
+        <div class="logo">
+            <h1>Assignment App</h1>
         </div>
-        <div class="right">
-            <button class="btn"><a [routerLink]="[ '/login']">Se connecter</a></button>
-            <button class="btn"><a [routerLink]="[ '/register']">S'enregistrer</a></button>
+    </header>
+    <main class="hero">
+        <div class="hero-image">
+            <img src="https://i.pinimg.com/736x/6e/03/94/6e039465fb3ed88d04ea9f8c28f7efaf.jpg" alt="Student studying illustration">
         </div>
-    </div>
+        <div class="hero-content">
+            <h1>Maîtrisez vos devoirs avec éclat</h1>
+            <p>Une application fun et intuitive pour organiser, planifier et réussir vos projets scolaires.</p>
+            <div class="cta-buttons">
+                <button class="btn primary"><a [routerLink]="['/login']">Se connecter</a></button>
+                <button class="btn secondary"><a [routerLink]="['/register']">S'enregistrer</a></button>
+            </div>
+        </div>
+    </main>
+    <section class="features">
+        <h2>Boostez votre productivité</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+              <div class="icon">📅</div>
+              <h3>Planification Simplifiée</h3>
+              <p>Organisez vos devoirs et projets en quelques clics.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">✨</div>
+                <h3>Design Épuré</h3>
+                <p>Un style moderne qui met en valeur l'essentiel.</p>
+            </div>
+            <div class="feature-card">
+              <div class="icon">🔒</div>
+              <h3>Sécurité Garantie</h3>
+              <p>Vos données protégées avec les dernières technologies.</p>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials">
+        <h2>Ce que disent nos utilisateurs</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p>"Assignment App a transformé ma façon de gérer mes devoirs. C’est simple et super motivant !" - Emma, lycéenne</p>
+            </div>
+            <div class="testimonial-card">
+                <p>"Une interface claire et des rappels qui m’aident à rester organisé." - M. Dupont, professeur</p>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 Assignment App. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="#privacy">Politique de confidentialité</a>
+                <a href="#terms">Conditions d'utilisation</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

@@ -9,18 +9,18 @@ import { bdInitialAssignments } from './data';
   providedIn: 'root'
 })
 export class AssignmentsService {
-  //backendURL = 'http://localhost:8010/api/assignments';
+  backendURL = 'http://localhost:8010/api/assignments';
   // backendURL = 'https://angularbackm2mbdsesatic2024-2025.onrender.com/api/assignments';
-  backendURL = 'https://angular-back-gxb9.onrender.com/api/assignments';
+  //backendURL = 'https://angular-back-gxb9.onrender.com/api/assignments';
 
 
 assignments:Assignment[] = [];
-  
+
   constructor(private http:HttpClient) { }
 
   getAssignmentsPagines(page:number, limit:number):Observable<any> {
     console.log("Service:getAssignments appelée !");
-    
+
     // On utilise la methode get du service HttpClient
     // pour récupérer les données depuis le backend
     const URI = this.backendURL + '?page=' + page + '&limit=' + limit;
@@ -63,7 +63,7 @@ assignments:Assignment[] = [];
       nouvelAssignment.rendu = a.rendu;
 
       // J'appelle le service d'insertion d'un assignment
-      // et je l'insère dans la base de données via le 
+      // et je l'insère dans la base de données via le
       // backend
       this.addAssignment(nouvelAssignment)
       .subscribe(message => {
@@ -76,19 +76,19 @@ assignments:Assignment[] = [];
   // de savoir quand toutes les insertions sont terminées
   peuplerBDavecForkJoin():Observable<any> {
     let appelsVersAddAssignment:Observable<any>[] = [];
- 
+
     bdInitialAssignments.forEach(a => {
       const nouvelAssignment = new Assignment();
       nouvelAssignment.nom = a.nom;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;
- 
+
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment))
     });
- 
+
     // On renvoie un observable qui va nous permettre de savoir
     // quand toutes les insertions sont terminées
     return forkJoin(appelsVersAddAssignment);
   }
- 
+
 }

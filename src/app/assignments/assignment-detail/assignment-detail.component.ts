@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-assignment-detail',
-  imports: [MatCardModule, CommonModule, MatButtonModule, 
+  imports: [MatCardModule, CommonModule, MatButtonModule,
     MatCheckboxModule, RouterLink],
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.css'
@@ -22,7 +22,7 @@ export class AssignmentDetailComponent implements OnInit{
   @Input()
   assignmentTransmis?:Assignment;
 
-  constructor(private assignmentsService:AssignmentsService, 
+  constructor(private assignmentsService:AssignmentsService,
     private route:ActivatedRoute,
     private router:Router) {}
 
@@ -38,7 +38,7 @@ export class AssignmentDetailComponent implements OnInit{
       // etc.
     }
 
-    // Exemple de récupération du fragment d'URL 
+    // Exemple de récupération du fragment d'URL
     // (il ne peut y en avoir qu'un). Le fragment est la partie
     // de l'URL qui suit le #. Par ex : http://localhost:4200/assignment/1#top
     let fragment = this.route.snapshot.fragment;
@@ -49,7 +49,6 @@ export class AssignmentDetailComponent implements OnInit{
 
   getAssignment(): void {
     // On récupère l'id dans l'URL. Le + au début est une astuce
-    // pour convertir la chaîne de caractères en nombre
     const _id:string = this.route.snapshot.params['id'];
     console.log("ID = " + _id);
     // On utilise le service assignmentsService pour récupérer l'assignment
@@ -77,7 +76,7 @@ export class AssignmentDetailComponent implements OnInit{
 
   onDeleteAssignment() {
     if(!this.assignmentTransmis) return;
-    
+
     // On utilise le service pour supprimer l'assignment
     this.assignmentsService.deleteAssignment(this.assignmentTransmis)
     .subscribe(message => {

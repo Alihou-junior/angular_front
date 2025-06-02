@@ -13,7 +13,10 @@
             <a href="#" class="logo-img text-center">
                 <!-- <img src='../../assets/images/logo1.png' alt="Logo"> -->
             </a>
-            <p class="text-center">Système de gestion Intégré</p>
+            <p class="text-center">Connexion</p>
+
+            <!-- Lien vers la page de création de compte -->
+            <a [routerLink]="['/register']" class="text-decoration-none">Créer un compte</a>
 
             <!-- Formulaire de connexion -->
             <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
@@ -30,10 +33,8 @@
                 <button type="submit" class="btn btn-primary">Se connecter</button>
             </form>
 
-            <!-- Lien vers la page de création de compte -->
-            <button class="btn">
-                <a [routerLink]="['/register']" class="text-decoration-none">Créer un compte</a>
-            </button>
+
+
         </div>
     </div>
 </body>

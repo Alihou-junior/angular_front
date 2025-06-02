@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
@@ -17,8 +19,8 @@ import { Router, RouterLink } from '@angular/router';
   selector: 'app-assignments',
   imports: [CommonModule,
     MatListModule, MatDividerModule, MatButtonModule,
-    MatInputModule,MatFormFieldModule,FormsModule,
-    MatTableModule, MatPaginatorModule,
+    MatInputModule,MatFormFieldModule,FormsModule, MatCardModule,
+    MatTableModule, MatPaginatorModule,MatIconModule ,
     RouterLink],
   templateUrl: './assignments.component.html',
   styleUrl: './assignments.component.css'
@@ -27,7 +29,7 @@ import { Router, RouterLink } from '@angular/router';
 export class AssignmentsComponent implements OnInit {
   titre = 'Liste des assignments';
   assignments: Assignment[] = [];
-  
+
   // Pour la pagination
   page = 1;
   limit = 4;
@@ -112,12 +114,12 @@ export class AssignmentsComponent implements OnInit {
       return 'red';
   }
 
-  afficheDetail(row: any) {
-    console.log(row);
-    // On récupère l'id de l'assignment situé dans la colonne _id de la ligne
-    // sélectionnée
-    let id = row._id;
+  afficheDetail(id: string) {
+    console.log(id);
+
     // et on utilise le routeur pour afficher le détail de l'assignment
-    this.router.navigate(['/assignments', id]);
+    this.router.navigate(['/main/assignments', id]);
   }
+
+
 }
