@@ -1,87 +1,91 @@
-<h3>Ajout de devoir</h3>
-<form ngForm #addAssignmentForm 
-      (submit)="onSubmit($event); addAssignmentForm.reset()" 
-      class="form"
->
-    <mat-form-field>
-        <input matInput 
-               placeholder="Nom du devoir" 
-               [(ngModel)]="nomDevoir" 
-               name="nomDevoir" 
-               required
-        >
-    </mat-form-field>
+<div class="page-wrapper">
+  <div class="container" *ngIf="auteur; else loading">
+    <div class="card">
+      <h2>Créer un nouvel assignment</h2>
+      <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+        <div class="form-container">
+          <div class="info-part">
+            <mat-form-field appearance="outline">
+              <mat-label>Nom de l'assignment</mat-label>
+              <input matInput formControlName="nom" placeholder="Entrez le nom" required aria-label="Nom de l'assignment">
+              @if (assignmentForm.get('nom')?.hasError('required')) {
+                <mat-error>Le nom est requis</mat-error>
+              }
+              @if (assignmentForm.get('nom')?.hasError('minlength')) {
+                <mat-error>Le nom doit contenir au moins 3 caractères</mat-error>
+              }
+            </mat-form-field>
 
-    <mat-form-field>
-        <input matInput 
-               placeholder="Matiere" 
-               [(ngModel)]="matiereNom" 
-               name="matiereNom"
-               required
-        >
-    </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Date de rendu</mat-label>
+              <input matInput [matDatepicker]="picker" [min]="today" formControlName="dateDeRendu" required aria-label="Date de rendu">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              @if (assignmentForm.get('dateDeRendu')?.hasError('required')) {
+                <mat-error>La date de rendu est requise</mat-error>
+              }
+            </mat-form-field>
 
-    <mat-form-field>
-        <input matInput 
-               placeholder="URL de l'image de la Matiere" 
-               [(ngModel)]="matiereImage" 
-               name="matiereImage"
-               required
-        >
-    </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Matière</mat-label>
+              <mat-select formControlName="matiereId" [compareWith]="compareMatiereById" placeholder="Rechercher une matière">
+                <!-- Option de filtre dans une mat-option désactivée (TODO) -->
+                <mat-option disabled>
+                  <input type="text" (input)="onSearchChange($event)" placeholder="Filtrer les matières..." class="matiere-filter-input">
+                </mat-option>
 
-    <mat-form-field>
-        <input matInput 
-               placeholder="URL de la photo du Prof" 
-               [(ngModel)]="matiereImageProf" 
-               name="matiereImageProf"
-               required
-        >
-    </mat-form-field>
+                @for (matiere of filteredMatieres$ | async; track matiere._id) {
+                  <mat-option [value]="matiere" matTooltip="{{ matiere.description }}">
+                    <div class="matiere-option">
+                      <img [src]="matiere.image || 'assets/default-image.png'" alt="{{ matiere.nom }}" class="matiere-image" loading="lazy">
+                      <div class="matiere-info">
+                        <span class="matiere-nom">{{ matiere.nom }}</span>
+                        <span class="responsable-info">
+                          @if (isUser(matiere.responsable)) {
+                            <img [src]="matiere.responsable.image || 'assets/default-photo.png'" alt="{{ matiere.responsable.name }} {{ matiere.responsable.surname }}" class="responsable-photo" loading="lazy">
+                            {{ matiere.responsable.name }} {{ matiere.responsable.surname }}
+                          } @else {
+                            <img src="assets/default-photo.png" alt="{{ matiere.responsable || 'Inconnu' }}" class="responsable-photo" loading="lazy">
+                            {{ matiere.responsable || 'Inconnu' }}
+                          }
+                        </span>
+                      </div>
+                    </div>
+                  </mat-option>
+                }
+              </mat-select>
 
-    <mat-form-field>
-        <mat-label>Choisissez date de rendu</mat-label>
-        <input matInput [matDatepicker]="picker"
-               [(ngModel)]="dateDeRendu" 
-               name="dateDeRendu"
-               required>
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+              @if (assignmentForm.get('matiereId')?.hasError('required')) {
+                <mat-error>La matière est requise</mat-error>
+              }
+            </mat-form-field>
 
-    <mat-form-field>
-        <input matInput 
-                  placeholder="Nom de l'auteur du devoir" 
-                  [(ngModel)]="auteur"
-                  name="auteur"
-                  required>
-    </mat-form-field>
+          </div>
+        </div>
 
-    <mat-form-field>
-        <input matInput
-        type="number"
-        min="0"
-        max="20"
-        step="1"
-        placeholder="Note sur 20" 
-        [(ngModel)]="note"
-        name="note"
-        required>
-    </mat-form-field>
+        <div class="action-buttons">
+          <button mat-raised-button color="primary" type="submit" [disabled]="assignmentForm.invalid">Créer</button>
+          <button mat-button type="button" (click)="onCancel()">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-    <mat-form-field>
-        <mat-label>Remarques</mat-label>
-        <textarea matInput 
-                  placeholder="Remarques sur le devoir" 
-                  [(ngModel)]="remarques" 
-                  name="remarques"
-                  required>
-        </textarea>
-    </mat-form-field>
+  <ng-template #loading>
+    <div class="loading">
+      <div class="spinner"></div>
+      <span>Chargement...</span>
+    </div>
+  </ng-template>
+</div>
 
-    <button mat-raised-button color="primary">
-        Ajouter un devoir à rendre
-    </button>
-</form>
 
+
+<!--
+
+
+
+
+
+
+-->

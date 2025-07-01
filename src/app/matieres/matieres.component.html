@@ -1,0 +1,85 @@
+<div class="dashboard-container">
+  <div class="dashboard-hero">
+    <div class="hero-content">
+      <h1 class="gradient-text">{{ titre }}</h1>
+      <p class="hero-subtitle">Gérez vos matières avec facilité</p>
+    </div>
+  </div>
+
+  <!-- Champ de recherche -->
+  <input
+    type="text"
+    [(ngModel)]="search"
+    (input)="getMatieres()"
+    placeholder="Rechercher une matière..."
+    class="search-input"
+  />
+
+  <!-- Bouton Ajout d'une matière-->
+ <button mat-fab color="primary" class="create-button" (click)="openCreateDialog()" matTooltip="Créer une nouvelle matière">
+  <mat-icon>add</mat-icon>
+</button>
+
+  <!-- Liste des matières -->
+  <div class="matiere-list">
+    @if (matieres.length > 0) {
+      @for (matiere of matieres; track matiere._id) {
+        <div class="matiere-card">
+          <!-- Image de la matière -->
+          <img
+            [src]="matiere.image || 'assets/images/placeholder.png'"
+            alt="{{ matiere.nom }}"
+            class="matiere-image"
+          />
+          <!-- Contenu de la carte -->
+          <div class="matiere-content">
+            <h3>{{ matiere.nom }}</h3>
+            <p class="description">{{ matiere.description }}</p>
+            <p class="responsable">
+              Responsable: {{ responsable.name }} {{ responsable.surname }}
+            </p>
+          </div>
+          <!-- Actions -->
+          <div class="matiere-actions">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="navigateToAssignments(matiere._id)"
+              class="access-button"
+              matTooltip="Accéder aux devoirs"
+            >
+              <mat-icon>exit_to_app</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="openEditDialog(matiere)"
+              matTooltip="Modifier"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteMatiere(matiere._id)"
+              matTooltip="Supprimer"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      }
+    } @else {
+      <p class="no-data">Aucune matière trouvée.</p>
+    }
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button mat-button (click)="premierePage()" [disabled]="!hasPrevPage">« Première</button>
+    <button mat-button (click)="pagePrecedente()" [disabled]="!hasPrevPage">‹ Précédente</button>
+    <span>Page {{ page }} / {{ totalPages }}</span>
+    <button mat-button (click)="pageSuivante()" [disabled]="!hasNextPage">Suivante ›</button>
+    <button mat-button (click)="dernierePage()" [disabled]="!hasNextPage">Dernière »</button>
+  </div>
+</div>

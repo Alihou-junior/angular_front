@@ -5,7 +5,7 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background:
         linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-        url('https://i.pinimg.com/originals/39/3b/a8/393ba8246897375c3c167a11a637b251.jpg') center/cover no-repeat fixed;
+        url('https://i.pinimg.com/736x/10/3f/24/103f243e608b36d91e79ff40f815553d.jpg') center/cover no-repeat fixed;
     min-height: 100vh;
     overflow-x: hidden;
 }

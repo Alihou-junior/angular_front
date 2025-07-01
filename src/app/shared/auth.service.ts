@@ -3,6 +3,7 @@ import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { users } from '../home/auth.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -10,8 +11,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
   // URL du backend pour les utilisateurs
-  private backendURL = 'https://angular-back-gxb9.onrender.com/api'; // Remplacez par votre URL
-  //private backendURL = 'http://localhost:8010/api'; //
+  //private backendURL = 'https://angular-back-gxb9.onrender.com/api'; // Remplacez par votre URL
+  private backendURL = 'http://localhost:8010/api'; //
   private isLocalStorageAvailable = typeof localStorage !== 'undefined';
   users:users[] = [];
   jwtHelper: any;
@@ -55,12 +56,14 @@ export class AuthService {
       return false;
     }
   }
+
+
   logout(): void {
     // Supprimer le jeton d'authentification (exemple avec localStorage)
     localStorage.removeItem('token');
-
-    // Vous pouvez également supprimer d'autres informations liées à la session
   }
+
+
   // Route : Connexion
   login(email: string, password: string): Observable<any> {
     const body = { email, password };
@@ -72,7 +75,6 @@ export class AuthService {
     const headers = { Authorization: token };
     return this.http.get<users>(`${this.backendURL}/profile`, { headers });
   }
-
 
 
 }

@@ -3,12 +3,8 @@ export class Assignment {
     nom!:string;
     dateDeRendu!:Date;
     rendu!:boolean;
-    auteur!:string;
-    matiere!: {
-        nom : string;
-        image : string;
-        imageProf : string;
-    };
+    auteur!:string; // ID de l'utilisateur
+    matiere!:string; // // ID de la matière (au lieu de l'objet complet);
     note!:number;
     remarques!:string;
 }

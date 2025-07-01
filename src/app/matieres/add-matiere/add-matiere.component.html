@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Créer une nouvelle matière</h2>
+
+  <form [formGroup]="matiereForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <div class="form-container">
+
+      <!-- Partie gauche : info -->
+      <div class="info-part">
+        <label for="nom">Nom</label>
+        <input type="text" formControlName="nom" placeholder="Nom de la matière" required>
+
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" rows="4" required></textarea>
+      </div>
+
+      <!-- Partie droite : upload image -->
+      <div class="image-part">
+        <div class="image-preview-box">
+          @if(imagePreview) {
+            <img [src]="imagePreview" alt="Aperçu" />
+          } @else {
+            <div class="placeholder">Aperçu de l'image</div>
+          }
+
+        </div>
+
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" id="imageInput" hidden>
+        <button type="button" mat-stroked-button (click)="triggerFileInput()">Choisir une image</button>
+      </div>
+
+    </div>
+
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" type="submit" [disabled]="matiereForm.invalid">Créer</button>
+      <button mat-button type="button" (click)="onCancel()">Annuler</button>
+    </div>
+  </form>
+</div>
+

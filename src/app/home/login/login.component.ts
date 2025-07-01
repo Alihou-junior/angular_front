@@ -25,8 +25,16 @@ export class LoginComponent {
         localStorage.setItem('token', response.token);
         // localStorage.setItem('testKey', 'testValue');
         console.log("valeur localstorage",localStorage);  // Devrait afficher "testValue"
-        // Redirigez l'utilisateur vers la page d'accueil ou une autre page
-        this.router.navigate(['main/assignments']);
+        this.authService.getProfile(response.token).subscribe({
+          next: (profile) => {
+            if (profile.role === "admin") {
+              // Redirigez vers la page des matières
+              this.router.navigate(['main/matieres']);
+            } else {
+              this.router.navigate(['main/assignments']);
+            }
+          }
+        })
       },
       (error) => {
         console.error('Erreur de connexion', error);

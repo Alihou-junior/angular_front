@@ -6,7 +6,7 @@ export class users {
     email!:string;
     password!:string;
     createdAt!:Date;
-    role!: string; // 'user' ou 'admin'
+    role!: 'user' | 'admin';
     image!: string;
 
 }

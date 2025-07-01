@@ -1,39 +1,78 @@
-
-<mat-toolbar color = "primary" class="toolbar">
-    <div class="left-side">
-      <button mat-icon-button (click)="opened=!opened">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span >{{titre}}</span>
-      <span class="spacer"></span>
-              <button mat-raised-button color="primary" class="button-toolbar" (click)="genererDonneesDeTest()">
-              PEUPLER BD AVEC DONNEES DE TEST
-            </button>
-    </div>
-    <button (click)="onLogout()" class="btn btn-danger">
-      Déconnexion
+<!-- Nouveau Toolbar Évolutif -->
+<header class="neo-toolbar">
+  <!-- Partie dynamique gauche -->
+  <div class="neo-toolbar-sector neo-left">
+    <button class="neo-menu-btn" (click)="onSideMenu()">
+      <div class="hamburger" [class.active]="!opened">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
     </button>
-      <a routerLink="/about" class="auteur">{{auteur}}</a>
-    </mat-toolbar>
 
-    <mat-sidenav-container class="example-container">
-
-      <mat-sidenav [(opened)]="opened" >
-        <mat-nav-list>
-          <a mat-list-item routerLink="assignments" routerLinkActive="active" (click)="opened=!opened">Home</a>
-          <a mat-list-item routerLink="assignments/add" routerLinkActive="active"(click)="opened=!opened">Ajouter Un devoir</a>
-          <a mat-list-item routerLink="/about" routerLinkActive="active"(click)="opened=!opened">Contact</a>
-        </mat-nav-list>
-      </mat-sidenav>
-
-      <mat-sidenav-content>
-          <div class="main">
-            <router-outlet></router-outlet>
-          </div>
-        <!-- </div> -->
-      </mat-sidenav-content>
-    </mat-sidenav-container>
+    <div class="neo-title-container">
+      <h1 class="neo-main-title">{{ titre }}</h1>
+      <div class="neo-subtitle">Bienvenue, {{ userName }}</div>
+    </div>
+  </div>
 
 
 
+  <!-- Partie droite avec effets -->
+  <div class="neo-toolbar-sector neo-right">
+    <button class="neo-action-btn pop-btn" (click)="genererDonneesDeTest()">
+      <span class="btn-text">Peupler BD</span>
+      <span class="pulse-effect"></span>
+    </button>
 
+    <div class="user-badge">
+      <div class="logout-wrapper">
+        <button class="neo-logout-btn" (click)="onLogout()" matTooltip="Déconnexion" matTooltipPosition="below">
+          <mat-icon>exit_to_app</mat-icon>
+        </button>
+        <div class="logout-wave"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Sidebar + contenu -->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav [(opened)]="opened" mode="side" [style.width]="menuSize" class="sidebar-glass">
+    <!-- Info de l'utilisateur connecté -->
+    <div class="sidenav-header">
+      <img [style.width]="imageSize" [style.height]="imageSize" src="{{userImage}}" alt="photo de profile">
+      <div class="sidenav-header-text">
+        <h2 [hidden]="collapsed">{{userName}} {{userSurname}}</h2>
+
+        @if(isAdmin) {
+          <p [hidden]="collapsed">Professeur</p>
+        } @else {
+          <p [hidden]="collapsed">Elève</p>
+        }
+      </div>
+    </div>
+
+    <!-- Onglets du sidebar -->
+    <mat-nav-list class="menu-list">
+      @for(item of sideMenuItems; track item.link) {
+        @if(item.visible) {
+          <a  [routerLink]="item.link" routerLinkActive="selected-menu-item" #rla="routerLinkActive"  class="menu-item" matTooltip="{{item.title}}">
+            <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+            @if(!collapsed) {
+              <span>{{ item.title }}</span>
+            }
+
+          </a>
+        }
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Contenu principal -->
+  <mat-sidenav-content [style.margin-left]="menuSize">
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

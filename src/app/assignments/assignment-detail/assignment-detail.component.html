@@ -1,31 +1,146 @@
-@if(assignmentTransmis) {
-    <mat-card appearance="outlined">
-        <mat-card-header>
-          <mat-card-subtitle>{{assignmentTransmis.matiere.nom}}</mat-card-subtitle>
-          <div class="image-group">
-            <img [src]="assignmentTransmis.matiere.image" alt="Matière" class="subject-img" />
-            <img [src]="assignmentTransmis.matiere.imageProf" alt="Professeur" class="prof-img" />
+<div class="page-wrapper">
+  <div class="particle-background"></div>
+  <div class="assignment-wrapper">
+    @if (isLoading) {
+      <div class="loading-container">
+        <div class="spinner">
+          <div class="neon-ring"></div>
+          <div class="neon-ring ring-2"></div>
+        </div>
+        <p>Chargement des détails...</p>
+      </div>
+    }
+
+    @if (!isLoading && assignment && matiere) {
+      <div class="assignment-container">
+        <!-- Bouton retour -->
+        <button class="back-button" (click)="router.navigate(['/main/assignments'])">
+          ← Retour
+        </button>
+
+        <!-- En-tête simplifié -->
+        <header class="assignment-header">
+          <h1>Assignment Report</h1>
+          <div class="note-display">
+            <span class="note-circle" [class.no-note]="!assignment.note">
+              {{ assignment.note ? assignment.note : '--' }} / 20
+            </span>
           </div>
-        </mat-card-header>
-        <mat-card-content>
-            <mat-card-title> {{assignmentTransmis.nom}}</mat-card-title>
-            <p><span>Auteur</span> : {{assignmentTransmis.auteur}}</p>
-            <p><span>A rendre le</span> : {{assignmentTransmis.dateDeRendu| date:"d/M/YY"}}</p>
-            <p><span>Note</span> : {{assignmentTransmis.note ? assignmentTransmis.note : 'Pas encore noté'}}</p>
-            <p><span>Remarque</span> : {{assignmentTransmis.remarques ? assignmentTransmis.remarques : 'Aucune remarque'}}</p>
-            @if(assignmentTransmis.rendu) {
-                  <p class="rendu">Rendu</p>
-            }@else {
-              <p class="nonRendu">Non rendu</p>
-            }
-        </mat-card-content>
+        </header>
 
-        <mat-card-actions class="containerBoutons">
-                <a routerLink="/main/assignments/{{assignmentTransmis._id}}/edit">
-                    <button mat-raised-button color="primary">EDIT</button>
-                </a>
+        <!-- Première ligne : Devoir + (Auteur ou Responsable selon rôle) -->
+        <div class="card-row">
+          <!-- Carte Devoir -->
+          <mat-card class="main-card assignment-card">
+            <div class="card-header">
+              <h2>{{ assignment.nom }}</h2>
 
-                <button mat-raised-button class="deleteBtn" (click)="onDeleteAssignment()">DELETE</button>
-        </mat-card-actions>
-      </mat-card>
-}
+              @if(assignment.rendu) {
+                <div class="submission-status-rendu"> Rendu </div>
+              } @else {
+                <div class="submission-status-non-rendu"> Non rendu </div>
+              }
+
+            </div>
+            <div class="card-content">
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Date de rendu</span>
+                  <span class="info-value">{{ assignment.dateDeRendu | date:'mediumDate' }}</span>
+                </div>
+
+                <!-- On a supprimé la note en double ici -->
+              </div>
+
+              @if (assignment.remarques) {
+                <div class="remarks-section">
+                  <h3>Remarques</h3>
+                  <p class="remarks-content">{{ assignment.remarques }}</p>
+                </div>
+              }
+            </div>
+          </mat-card>
+
+
+        </div>
+
+        <!-- Deuxième ligne : Matière -->
+        <div class="card-row">
+          <mat-card class="main-card matiere-card">
+            <div class="card-header">
+              <h2>Matière</h2>
+            </div>
+            <div class="card-content">
+              <div class="matiere-content">
+                <img [src]="matiere.image || 'assets/default-image.png'"
+                     [alt]="matiere.nom"
+                     class="matiere-img">
+                <div class="matiere-info">
+                  <h3>{{ matiere.nom }}</h3>
+                  @if (matiere.description) {
+                    <div class="description-container">
+                      <p class="description">{{ matiere.description }}</p>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </mat-card>
+
+           <!-- Carte Auteur (visible pour les admins) OU Responsable (visible pour les users) -->
+          @if (isAdminRole && isUser(assignment.auteur)) {
+            <mat-card class="main-card person-card">
+              <div class="card-header">
+                <h2>Auteur</h2>
+              </div>
+              <div class="card-content">
+                <div class="person-content">
+                  <img [src]="assignment.auteur.image || 'assets/default-photo.png'"
+                       [alt]="assignment.auteur.name"
+                       class="person-img">
+                  <div class="person-info">
+                    <h3>{{ assignment.auteur.name }} {{ assignment.auteur.surname }}</h3>
+                    <div class="contact-info">
+                      <mat-icon>email</mat-icon>
+                      <span>{{ assignment.auteur.email }}</span>
+                    </div>
+                    <button class="contact-button">
+                      <mat-icon>send</mat-icon>
+                      Contacter
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          } @else if (isUserRole && isUser(responsable)) {
+            <mat-card class="main-card person-card">
+              <div class="card-header">
+                <h2>Responsable</h2>
+              </div>
+              <div class="card-content">
+                <div class="person-content">
+                  <img [src]="responsable.image || 'assets/default-photo.png'"
+                       [alt]="responsable.name"
+                       class="person-img">
+                  <div class="person-info">
+                    <h3>{{ responsable.name }} {{ responsable.surname }}</h3>
+                    <div class="contact-info">
+                      <mat-icon>email</mat-icon>
+                      <span>{{ responsable.email }}</span>
+                    </div>
+                    <a class="contact-button" mat-raised-button [href]="'mailto:' + responsable.email">
+                      <mat-icon>send</mat-icon>
+                      Contacter
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          }
+
+
+        </div>
+      </div>
+    }
+  </div>
+</div>

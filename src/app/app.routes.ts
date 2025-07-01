@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './home/register/register.component';
 import { AuthGuard } from './shared/auth.guard';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { MatieresComponent } from './matieres/matieres.component';
+import { computed } from '@angular/core';
 
 export const routes: Routes = [
     // Redirection vers la page de connexion par défaut
@@ -19,6 +21,7 @@ export const routes: Routes = [
     // Routes publiques (accessible sans authentification)
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+
 
     // Route protégée : nécessite une authentification
     {
@@ -32,6 +35,9 @@ export const routes: Routes = [
             { path: 'assignments/add', component: AddAssignmentComponent }, // Ajout sous le layout
             { path: 'assignments/:id', component: AssignmentDetailComponent },
             { path: 'assignments/:id/edit', component: EditAssignmentComponent },
+            { path: 'matieres', component: MatieresComponent },
+            { path: 'about', component: AboutmeComponent },
+
         ]
     },
     { path: 'about', component: AboutmeComponent },

@@ -1,30 +1,77 @@
-@if(assignment) {
-    <div class="container">
-     <h1>Edition de l'assignment {{assignment.nom}}</h1>
-     <form ngForm class="form" 
-           #formupdate (submit)="onSaveAssignment(); formupdate.reset();"
-           class="form"
-      >
-       <mat-form-field>
-         <input matInput placeholder="Edition du nom" 
-                [(ngModel)]="nomAssignment" 
-                name="assignment-name"
-          >
-       </mat-form-field>
-       <mat-form-field>
-         <input matInput [matDatepicker]="picker" 
-                placeholder="Edition de la date" 
-                [(ngModel)]="dateDeRendu" 
-                name="date"
-          >
-         <mat-datepicker-toggle matSuffix [for]="picker">
-         </mat-datepicker-toggle>
-         <mat-datepicker #picker></mat-datepicker>
-       </mat-form-field>
-       <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateDeRendu))">
-        Sauver
-      </button>
-    </form>
-   </div>
-   }
-       
+<div class="page-wrapper">
+  <!-- Ajout du bouton Retour en haut de page -->
+
+
+  <div class="bulletin-wrapper" *ngIf="!this.isLoading; else loading">
+    <button mat-button class="back-button" (click)="onCancel()">
+    <mat-icon>arrow_back</mat-icon> Retour
+    </button>
+
+    <div class="bulletin-container">
+      <header class="note-header">
+        <h1>Bulletin de Notation</h1>
+        <div class="note-display">
+          <span class="note-circle">{{ assignment.note ? assignment.note :  '--' }} / 20</span>
+        </div>
+      </header>
+
+      <section class="content-grid">
+        <div class="assignment-card">
+          <h2>Devoir</h2>
+          <div class="assignment-details">
+            <h3>{{ assignment.nom }}</h3>
+            <p class="detail-item"><strong>Date de rendu :</strong> {{ assignment.dateDeRendu | date:'mediumDate' }}</p>
+            <div class="submission-status" [ngClass]="{'submitted': assignment.rendu, 'pending': !assignment.rendu}">
+              {{ assignment.rendu ? 'Rendu' : 'Non rendu' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="matiere-card">
+          <h2>Matière</h2>
+          <div class="matiere-content">
+            <img [src]="matiere.image" alt="Matière" class="matiere-img">
+            <div class="matiere-info">
+              <h3>{{ matiere.nom }}</h3>
+              @if (matiere.responsable && isUser(matiere.responsable)) {
+                <p><strong>Responsable :</strong> {{ matiere.responsable.name }} {{ matiere.responsable.surname }}</p>
+              }
+              @if (matiere.description) {
+                <p class="description">{{ matiere.description }}</p>
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grading-section">
+        <h2>Évaluation</h2>
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="grading-form">
+          <mat-form-field appearance="outline" class="grade-input">
+            <mat-label>Note</mat-label>
+            <input matInput type="number" formControlName="note" min="0" max="20" placeholder="Entrez la note">
+            <mat-hint>Entrez une note entre 0 et 20</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="remarks-input">
+            <mat-label>Postez un commentaire</mat-label>
+            <textarea matInput formControlName="remarques" rows="5" placeholder="Ajoutez vos remarques ici"></textarea>
+          </mat-form-field>
+
+          <div class="action-buttons">
+            <button mat-raised-button color="primary" type="submit" [disabled]="editForm.invalid">Enregistrer</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading">
+      <div class="spinner"></div>
+      <span>Chargement du formulaire...</span>
+    </div>
+  </ng-template>
+</div>
+
+

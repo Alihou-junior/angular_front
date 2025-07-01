@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Assignment } from '../assignments/assignment.model';
 import { forkJoin, Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { bdInitialAssignments } from './data';
 
@@ -9,49 +9,108 @@ import { bdInitialAssignments } from './data';
   providedIn: 'root'
 })
 export class AssignmentsService {
-  //backendURL = 'http://localhost:8010/api/assignments';
+  private backendURL = 'http://localhost:8010/api/assignments';
   // backendURL = 'https://angularbackm2mbdsesatic2024-2025.onrender.com/api/assignments';
-  private backendURL = 'https://angular-back-gxb9.onrender.com/api/assignments';
+  //private backendURL = 'https://angular-back-gxb9.onrender.com/api/assignments';
 
 
 assignments:Assignment[] = [];
 
   constructor(private http:HttpClient) { }
 
-  getAssignmentsPagines(page:number, limit:number):Observable<any> {
+  // GET avec pagination + filtres
+  getAssignmentsPagines(page:number, limit:number, search?: string, matiereId?: string, rendu?: boolean):Observable<any> {
     console.log("Service:getAssignments appelée !");
 
-    // On utilise la methode get du service HttpClient
-    // pour récupérer les données depuis le backend
-    const URI = this.backendURL + '?page=' + page + '&limit=' + limit;
-    return this.http.get<Assignment[]>(URI);
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
+    if (search) {
+      params = params.set('search', search);
+    }
+
+    if (matiereId) {
+      params = params.set('matiere', matiereId);
+    }
+
+    if (rendu !== null && rendu !== undefined) {
+      params.set('rendu', rendu.toString());
+    }
+
+    return this.http.get<any>(`${this.backendURL}/paginated`, { params }) ; // http://localhost:8010/api/assignments/paginated
+
   }
 
-  getAssignment(_id:string):Observable<Assignment|undefined> {
+  // GET par ID
+  getAssignment(_id:string):Observable<Assignment> {
     console.log("Service:getAssignment appelée avec id = " + _id);
-    // route = /api/assignments/:id côté serveur !
-    let URI = this.backendURL + '/' + _id;
-
-    return this.http.get<Assignment>(URI);
+    return this.http.get<Assignment>(`${this.backendURL}/${_id}`); //http://localhost:8010/api/assignments/:id
   }
 
-  addAssignment(assignment:Assignment):Observable<string> {
+  // POST
+  addAssignment(assignment:Assignment):Observable<Assignment> {
     // On ajoute l'assignment passé en paramètres
     // en l'envoyant par POST au backend
-     return this.http.post<string>(this.backendURL, assignment);
+     return this.http.post<Assignment>(this.backendURL, assignment); //http://localhost:8010/api/assignments
   }
 
-  updateAssignment(assignment:Assignment):Observable<string> {
+  // PUT
+  updateAssignment(id: string, assignment:Partial<Assignment>):Observable<Assignment> {
     // On met à jour l'assignment passé en paramètres
     // en l'envoyant par PUT au backend
-    return this.http.put<string>(this.backendURL, assignment);
+    return this.http.put<Assignment>(`${this.backendURL}/${id}`, assignment);
   }
 
-  deleteAssignment(assignment:Assignment):Observable<string> {
+  // DELETE
+  deleteAssignment(assignmentId:string):Observable<Assignment> {
     // On supprime l'assignment passé en paramètres
     // en l'envoyant par DELETE au backend
-    return this.http.delete<string>(this.backendURL + '/' + assignment._id);
+    return this.http.delete<Assignment>(`${this.backendURL}/${assignmentId}`);
   }
+
+  // GET par auteur (avec pagination)
+  getAssignmentsByAuteurAvecPagination(auteurId: string, page:number, limit:number, search?: string, matiereId?: string, rendu?: boolean) {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
+    if (search) {
+      params = params.set('search', search);
+    }
+
+    if (matiereId) {
+      params = params.set('matiere', matiereId);
+    }
+
+    if (rendu !== null && rendu !== undefined) {
+      params = params.set('rendu', rendu.toString());
+    }
+
+    return this.http.get<any>(`${this.backendURL}/auteur/${auteurId}/paginated`, {params}) // http://localhost:8010/api/assignments/auteur/:id/paginated
+  }
+
+  // GET par matiere (avec pagination)
+  getAssignmentsByMatiereAvecPagination(matiereId: string, page:number, limit:number, search?: string, rendu?: boolean) {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
+    if (search) {
+      params = params.set('search', search);
+    }
+
+    if (rendu !== null && rendu !== undefined) {
+      params = params.set('rendu', rendu.toString());
+    }
+
+    return this.http.get<any>(`${this.backendURL}/matiere/${matiereId}/paginated`, {params}); // http://localhost:8010/api/assignments/matiere/:id/paginated
+  }
+
+
+
+
+
 
   // Pour la génération de données de test
   peuplerBD() {
