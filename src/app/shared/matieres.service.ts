@@ -11,7 +11,7 @@ export class MatiereService {
 
   //private backendURL = 'http://localhost:8010/api/matieres';
   //private backendURL = 'https://angular-back-gxb9.onrender.com/api/matieres';
-  private backendURL = 'https://angular-back-shog.onrender.com/api';
+  private backendURL = 'https://angular-back-shog.onrender.com/api/matieres';
 
   constructor(private http: HttpClient) {}
 
