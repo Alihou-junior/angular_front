@@ -11,8 +11,8 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService {
   // URL du backend pour les utilisateurs
-  //private backendURL = 'https://angular-back-gxb9.onrender.com/api'; // Remplacez par votre URL
-  private backendURL = 'http://localhost:8010/api'; //
+  private backendURL = 'https://angular-back-gxb9.onrender.com/api'; // Remplacez par votre URL
+  //private backendURL = 'http://localhost:8010/api'; //
   private isLocalStorageAvailable = typeof localStorage !== 'undefined';
   users:users[] = [];
   jwtHelper: any;
@@ -75,6 +75,26 @@ export class AuthService {
     const headers = { Authorization: token };
     return this.http.get<users>(`${this.backendURL}/profile`, { headers });
   }
+
+  // Route : Editer le profil utilisateur (Protégée)
+  editProfile(token:string , id:string, name?:string,surname?:string, username?:string, email?:string, oldPassword?:string, newPassword?:string, image?:string |null ) {
+    const headers = { Authorization: token };
+    const body: any = {};
+
+   // Ne pas ajouter les champs vides ou undefined
+    if (name && name.trim() !== '') body.name = name;
+    if (surname && surname.trim() !== '') body.surname = surname;
+    if (username && username.trim() !== '') body.username = username;
+    if (email && email.trim() !== '') body.email = email;
+    if (oldPassword && oldPassword.trim() !== '' && newPassword && newPassword.trim() !== '') {
+      body.oldPassword = oldPassword;
+      body.newPassword = newPassword;
+    }
+    if (image && image.trim() !== '') body.image = image;
+
+    return this.http.put(`${this.backendURL}/profile`, body, { headers });
+  }
+
 
 
 }

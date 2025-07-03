@@ -11,7 +11,7 @@ import { RegisterComponent } from './home/register/register.component';
 import { AuthGuard } from './shared/auth.guard';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { MatieresComponent } from './matieres/matieres.component';
-import { computed } from '@angular/core';
+import { EditProfileComponent } from './home/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
     // Redirection vers la page de connexion par défaut
@@ -37,6 +37,7 @@ export const routes: Routes = [
             { path: 'assignments/:id/edit', component: EditAssignmentComponent },
             { path: 'matieres', component: MatieresComponent },
             { path: 'about', component: AboutmeComponent },
+            { path: 'profile', component: EditProfileComponent},
 
         ]
     },

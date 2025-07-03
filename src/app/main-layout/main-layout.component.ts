@@ -83,9 +83,9 @@ export class MainLayoutComponent implements OnInit {
 
   generateSideMenu() {
     this.sideMenuItems = [
-      { title: 'Accueil', icon: 'home', link: '/home', visible: true },
       { title: 'Mes devoirs', icon: 'assignment', link: '/main/assignments', visible: this.isAdmin? false : true },
       { title: 'Mes matières', icon: 'book', link: '/main/matieres', visible: this.isAdmin? true : false  },
+      { title: 'Profil', icon: 'person', link: '/main/profile', visible: true},
       { title: 'About Us', icon: 'info', link: '/main/about', visible: true }
     ];
   }
