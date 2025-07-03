@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../shared/auth.service';
 import { UploadService } from '../../shared/upload.service';
@@ -24,6 +25,7 @@ export class EditProfileComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private authService: AuthService,
     private uploadService: UploadService
   ) {
@@ -90,7 +92,9 @@ export class EditProfileComponent implements OnInit {
         ).subscribe({
           next: (updatedUser) => {
             alert('Profil mis à jour avec succès!');
-            window.location.reload();
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/main/profile']);
+            });
           },
           error: (err) => {
             console.error('Erreur lors de la mise à jour', err);
