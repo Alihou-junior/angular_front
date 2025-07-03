@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class UploadService {
   //private backendURL = 'http://localhost:8010/api/upload';
-  private backendURL = 'https://angular-back-gxb9.onrender.com/api/upload';
+  //private backendURL = 'https://angular-back-gxb9.onrender.com/api/upload';
+  private backendURL = 'https://angular-back-shog.onrender.com/api';
 
   constructor(private http: HttpClient) { }
 
