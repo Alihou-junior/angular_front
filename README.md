@@ -39,7 +39,7 @@ L'application offre une plateforme intuitive pour :
 
 <br>
 
-## Aperçu de l'application
+## 📸​ Aperçu de l'application
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/969a5f36-26b4-4b87-a190-70dbf555cf10" alt="Page profil" width="800"/>
@@ -96,7 +96,7 @@ La base de données contient des données réalistes pour tester l'application :
 
 <br>
 
-## Installation locale
+## 🛠️​ Installation locale
 
 ### Prérequis
 - [Node.js](https://nodejs.org/) ≥ v17
@@ -137,11 +137,11 @@ Une fois le serveur demarré, Ouvrez votre navigateur à l'addresse ```http://lo
 
 ### Deploiement 
 Pour deployer le projet en production, il faut :
--Compiler l'application 
+- Compiler l'application 
 ```bash 
 ng build --configuration production 
 ```
-- le dossier ```dist/assignment-app/``` genéré peut etre servi par un serveur Node, Express ou un hebergeur statique
+- Le dossier ```dist/assignment-app/``` genéré peut etre servi par un serveur Node, Express ou un hebergeur statique
 - Utilisez simplement la commande ```node server.js``` pour utiliser le server Express en dans votre terminal.
 
 
@@ -171,14 +171,14 @@ Apres lancement (sur Express par example), vous aurez acces à l'application loc
       - ... 
   - ...
 
-## Technologies utilisées 
+## 💻​ Technologies utilisées 
 - Angular - Framework web Frontend
 - RxJS - Programmation reactive
 - Angular Material - Composant UI
 
 <br>
 
-## Auteur(s) et Autrice(s) 
+## 👥​ Auteur(s) et Autrice(s) 
 - [Alihou-junior](https://github.com/Alihou-junior) - Développeur principal 
 - [capatainkomic](https://github.com/capatainkomic) - Développeuse collaboratrice
 
