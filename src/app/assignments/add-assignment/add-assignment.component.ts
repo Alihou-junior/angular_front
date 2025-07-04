@@ -105,9 +105,7 @@ export class AddAssignmentComponent implements OnInit {
 
 
   loadMatieres(search: string = ''): Observable<Matiere[]> {
-    // Utiliser la pagination pour limiter à 10 matières par requête
-    return this.matiereService.getMatieresAvecPagination(1, 10, search).pipe(
-      map((res) => res.docs || []),
+    return this.matiereService.getMatieres(search).pipe(
       map((matieres) => {
         this.matieres = matieres; // Synchroniser this.matieres
         return matieres;
@@ -115,6 +113,7 @@ export class AddAssignmentComponent implements OnInit {
     );
   }
 
+  
   onSearchChange(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.searchSubject.next(value);
